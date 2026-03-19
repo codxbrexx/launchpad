@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, X } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function SignupPage() {
@@ -196,8 +196,16 @@ export default function SignupPage() {
           </div>
 
           {error && (
-            <div className="py-2 pl-3 mt-4 text-xs text-red-600 bg-red-50 border-l-2 border-red-500">
-              {error}
+            <div className="flex items-center justify-start text-xs text-red-600 animate-in fade-in slide-in-from-top-2 duration-300">
+              <X size={12} className="mt-0.5 mr-2 text-red-500" />
+              <span> {error}</span>
+              <button
+                type="button"
+                onClick={() => setError('')}
+                className="ml-2 hover:text-red-800 transition-colors p-1"
+                aria-label="Clear error"
+              >
+              </button>
             </div>
           )}
 
