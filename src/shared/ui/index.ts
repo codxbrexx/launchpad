@@ -2,9 +2,11 @@
 export { Button } from './Button';
 export { Card } from './Card';
 export { CopyButton } from './CopyButton';
+export { DeleteModal } from './DeleteModal';
 export { EmptyState } from './EmptyState';
 export { FloatingChat } from './FloatingChat';
 export { LanguageBadge } from './LanguageBadge';
+export { ProgressBar } from './ProgressBar';
 export { Spinner } from './Spinner';
 export { StatusBadge } from './StatusBadge';
 export { StepIndicator } from './StepIndicator';
