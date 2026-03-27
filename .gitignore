@@ -25,3 +25,6 @@ dist-ssr
 
 # envoriment variables
 .env
+
+playwright-report/
+test-results/

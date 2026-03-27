@@ -11,11 +11,17 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
     "preview": "vite preview",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage",
-    "typecheck": "tsc --noEmit"
+    "unit": "vitest run",
+    "unit:watch": "vitest",
+    "unit:ui": "vitest --ui",
+    "unit:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:headed": "playwright test --headed",
+    "test:smoke": "playwright test tests/smoke",
+    "test:codegen": "playwright codegen"
   },
   "dependencies": {
     "@metacall/protocol": "^0.1.27",
@@ -30,6 +36,7 @@
     "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.48.2",
     "@eslint/js": "^9.39.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
