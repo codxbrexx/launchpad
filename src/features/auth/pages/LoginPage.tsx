@@ -31,7 +31,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md px-8 py-12">
         <div className="flex flex-col items-center mb-12">
           <div className="mb-4">
-            <img src="/metacall.svg" alt="MetaCall" className="h-20 w-20 object-contain" />
+            <img src="/metacall.svg" alt="MetaCall" className="h-16 w-auto object-contain" />
           </div>
         </div>
 

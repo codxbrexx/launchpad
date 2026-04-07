@@ -59,14 +59,14 @@ function getPlanClasses(plan?: string) {
 function DeployRow({ onClick, plusHover }: { onClick: () => void; plusHover: string }) {
   return (
     <div
-      className="flex items-center justify-between px-4 py-3.5 hover:bg-gray-50 transition-colors cursor-pointer"
+      className="flex items-center justify-between px-6 py-3.5 hover:bg-gray-50 transition-colors cursor-pointer"
       onClick={onClick}
     >
-      <span className="text-sm font-medium text-gray-500">Deploy</span>
+      <span className="text-smd font-medium text-gray-500">Deploy</span>
       <span
-        className={`inline-flex items-center justify-center w-7 h-7 border border-gray-300 text-gray-400 transition-all ${plusHover}`}
+        className={`inline-flex items-center justify-center w-8 h-7 border border-gray-300 text-gray-400 transition-all ${plusHover}`}
       >
-        <Plus size={13} strokeWidth={2.5} />
+        <Plus size={20} strokeWidth={2} />
       </span>
     </div>
   );
