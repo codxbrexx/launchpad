@@ -226,7 +226,7 @@ export default function DeployWizardPage() {
   }
 
   return (
-    <div className="grow flex flex-col items-center justify-start p-4 sm:p-6 pt-8 sm:pt-12 relative overflow-hidden animate-in fade-in duration-500 bg-white">
+    <div className="grow flex flex-col items-center justify-start p-4 sm:p-6 relative overflow-hidden animate-in fade-in duration-500 bg-white">
       <div className="w-full max-w-5xl bg-white border border-gray-200 shadow-sm flex flex-col z-10 transition-all rounded-sm">
         {/* Header */}
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-100 bg-gray-50/30">
