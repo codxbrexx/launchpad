@@ -36,7 +36,7 @@ export default function DeployHubPage() {
 
   {/* we make  also deployment page for small devices first, so we can hide some content on mobile for better UX and user friendly experience, and show more details on desktop */}
   return (
-    <div className="grow flex flex-col items-center justify-start p-6 pt-20 relative overflow-hidden animate-in fade-in duration-500 bg-white">
+    <div className="grow flex flex-col items-center justify-start p-6 pt-12 relative overflow-hidden animate-in fade-in duration-500 bg-white">
       <div className="max-w-4xl w-full z-10 flex flex-col gap-10">
         <div className="text-center mb-6">
           <h1 className="text-[28px] font-bold text-slate-900 mb-3 tracking-tight">
