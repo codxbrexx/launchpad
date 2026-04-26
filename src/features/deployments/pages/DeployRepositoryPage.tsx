@@ -12,10 +12,12 @@ import {
   RefreshCw,
   Eye,
   EyeOff,
+  AlertCircle,
 } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { Spinner } from '@/shared/ui/Spinner';
 import {
+  getPlanLabel,
   normalizePlan,
   readStoredPlan,
   toDeployPlan,
@@ -54,7 +56,21 @@ export default function DeployRepositoryPage() {
     writeStoredPlan(plan);
   }, [plan]);
 
+  // Strict plan validation - redirect if no plan
+  useEffect(() => {
+    if (!plan || plan === '') {
+      navigate('/plans', { replace: true });
+    }
+  }, [plan, navigate]);
+
   const handleDeploy = async () => {
+    // Check if plan is selected
+    if (!plan || plan === '') {
+      // Redirect to plan selection page
+      navigate('/plans', { replace: true });
+      return;
+    }
+
     if (!repositoryUrl.trim()) {
       setDeployError('Repository URL is required.');
       return;
@@ -219,11 +235,21 @@ export default function DeployRepositoryPage() {
           >
             <ArrowLeft size={18} strokeWidth={1.5} />
           </button>
-          <div className="flex-1">
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Deploy Repository</h1>
-            <p className="text-slate-600 text-sm mt-1">
-              Import a Git repository and deploy it as a FaaS function
-            </p>
+          <div className="flex items-center gap-3 flex-1">
+            <div className="w-9 h-9 flex items-center justify-center bg-white">
+              <FolderSync size={18} className="text-gray-500" strokeWidth={1.5} />
+            </div>
+            <div>
+              <h1 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-none">
+                Deploy Repository
+              </h1>
+              <p className="hidden sm:block text-xs text-slate-500 mt-0.5">
+                Import a Git repository and deploy it as a FaaS function
+              </p>
+              <p className="mt-1 text-[11px] font-semibold text-slate-500">
+                Active plan: <span className={plan ? 'text-blue-600' : 'text-red-500'}>{plan ? getPlanLabel(plan) : 'No plan selected'}</span>
+              </p>
+            </div>
           </div>
         </div>
 
@@ -466,8 +492,9 @@ export default function DeployRepositoryPage() {
         <div className="flex gap-3 pt-2">
           <button
             onClick={handleDeploy}
-            disabled={deploying || !repositoryUrl.trim()}
-            className="ml-auto px-8 py-2.5 text-sm font-bold text-white bg-gray-600 hover:bg-gray-700 disabled:bg-slate-400 disabled:cursor-not-allowed rounded-lg transition-colors flex items-center gap-2"
+            disabled={deploying || !repositoryUrl.trim() || !plan}
+            className="flex items-center justify-center gap-2 px-8 py-2.5  text-black border text-sm font-bold hover:bg-gray-600 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+            title={!plan ? 'Select a plan first to deploy' : !repositoryUrl.trim() ? 'Enter repository URL to deploy' : ''}
           >
             {deploying && <Spinner size={14} />}
             {deploying ? 'Deploying…' : 'Deploy Repository'}
