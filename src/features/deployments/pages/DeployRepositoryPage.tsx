@@ -12,7 +12,7 @@ import {
   RefreshCw,
   Eye,
   EyeOff,
-  AlertCircle,
+  FolderGit2,
 } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { Spinner } from '@/shared/ui/Spinner';
@@ -58,15 +58,14 @@ export default function DeployRepositoryPage() {
 
   // Strict plan validation - redirect if no plan
   useEffect(() => {
-    if (!plan || plan === '') {
+    if (!plan) {
       navigate('/plans', { replace: true });
     }
   }, [plan, navigate]);
 
   const handleDeploy = async () => {
     // Check if plan is selected
-    if (!plan || plan === '') {
-      // Redirect to plan selection page
+    if (!plan) {
       navigate('/plans', { replace: true });
       return;
     }
@@ -237,7 +236,7 @@ export default function DeployRepositoryPage() {
           </button>
           <div className="flex items-center gap-3 flex-1">
             <div className="w-9 h-9 flex items-center justify-center bg-white">
-              <FolderSync size={18} className="text-gray-500" strokeWidth={1.5} />
+              <FolderGit2 size={18} className="text-gray-500" strokeWidth={1.5} />
             </div>
             <div>
               <h1 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-none">
