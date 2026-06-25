@@ -14,6 +14,7 @@ import type { Deployment, MetaCallJSON, Plans } from '@/shared/types';
 import { readMockSubscriptions } from '@/shared/lib/plan';
 
 import { LS_TOKEN_KEY } from '@/shared/constants';
+import { env } from '@/app/config/env';
 
 const TOKEN_KEY = LS_TOKEN_KEY;
 
@@ -177,8 +178,6 @@ export const api = {
   /** List subscription deploys. */
   listSubscriptionsDeploys: async (): Promise<SubscriptionDeploy[]> => {
     try {
-      const token = localStorage.getItem(TOKEN_KEY) || '';
-      
       let realDeploys: SubscriptionDeploy[] = [];
       try {
         const response = await fetch(`${BASE_URL}/api/billing/list-subscriptions-deploys`, {
@@ -341,7 +340,36 @@ export const api = {
     args: unknown[] = [],
   ): Promise<R> => {
     try {
-      return await getProtocol().call<R>(prefix, suffix, version, name, args);
+      const baseUrl = env.FAAS_URL.replace(/\/+$/, '');
+      const url = `${baseUrl}/${prefix}/${suffix}/${version}/call/${name}`;
+
+      const response = await fetch(url, {
+        method: args === undefined || args.length === 0 ? 'GET' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `jwt ${getToken()}`,
+        },
+        body: args === undefined || args.length === 0 ? undefined : JSON.stringify(args),
+      });
+
+      if (!response.ok) {
+        const data = await response.text().catch(() => null);
+        throw new ApiError(
+          `HTTP ${response.status}: ${response.statusText}${
+            data ? ` - ${data}` : ''
+          }`,
+          response.status,
+          data
+        );
+      }
+
+      const text = await response.text();
+      try {
+        const parsed = JSON.parse(text) as unknown;
+        return (typeof parsed === 'string' ? parsed : parsed) as R;
+      } catch {
+        return text as unknown as R;
+      }
     } catch (err) {
       mapError(err);
     }
