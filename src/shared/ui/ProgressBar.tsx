@@ -101,10 +101,14 @@ export function ProgressBar({
   const meta = STATUS_META[status] ?? STATUS_META.stopped;
   const isBuilding = BUILDING_STATUSES.includes(status);
   const [elapsedSeconds, setElapsedSeconds] = useState(() => getElapsedSeconds(createdAt));
+  const [prevCreatedAt, setPrevCreatedAt] = useState(createdAt);
+
+  if (createdAt !== prevCreatedAt) {
+    setPrevCreatedAt(createdAt);
+    setElapsedSeconds(getElapsedSeconds(createdAt));
+  }
 
   useEffect(() => {
-    setElapsedSeconds(getElapsedSeconds(createdAt));
-
     if (!isBuilding || !createdAt) return;
 
     const interval = window.setInterval(() => {

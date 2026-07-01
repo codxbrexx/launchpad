@@ -4,7 +4,9 @@ export const decode = (token: string) => {
     if (parts.length >= 2) {
       return JSON.parse(atob(parts[1]));
     }
-  } catch {}
+  } catch {
+    // Return null if decoding or parsing fails
+  }
   return null;
 };
 export default { decode };
