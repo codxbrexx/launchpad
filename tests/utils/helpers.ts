@@ -36,7 +36,7 @@ export async function clearAuthentication(page: Page) {
 
 
 //Mock API endpoint with response
-export async function mockAPIEndpoint(page: Page, urlPattern: string | RegExp, response: any) {
+export async function mockAPIEndpoint(page: Page, urlPattern: string | RegExp, response: unknown) {
   await page.route(urlPattern, (route) => {
     route.fulfill({
       status: 200,
